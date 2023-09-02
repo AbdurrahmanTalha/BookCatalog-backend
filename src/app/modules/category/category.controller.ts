@@ -38,4 +38,15 @@ const getSpecificCategory = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-export default { createCategory, getCategories, getSpecificCategory };
+const updateCategory = catchAsync(async (req: Request, res: Response) => {
+    const result = await service.updateCategoryService(req.params.id, req.body);
+
+    sendResponse<Category>(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Successfully updated category",
+        data: result,
+    });
+});
+
+export default { createCategory, getCategories, getSpecificCategory, updateCategory };

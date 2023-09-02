@@ -26,4 +26,15 @@ const getSpecificCategoryService = async (id: string): Promise<Category | null> 
     return result;
 };
 
-export default { createCategoryService, getAllCategoryService, getSpecificCategoryService };
+const updateCategoryService = async (id: string, data: Category): Promise<Category> => {
+    const result = await prisma.category.update({
+        where: {
+            id,
+        },
+        data,
+    });
+
+    return result;
+};
+
+export default { createCategoryService, getAllCategoryService, getSpecificCategoryService, updateCategoryService };
