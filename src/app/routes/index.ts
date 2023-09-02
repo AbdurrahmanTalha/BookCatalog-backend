@@ -2,23 +2,28 @@ import express from "express";
 import authRouter from "../modules/auth/auth.route";
 import userRouter from "../modules/user/user.route";
 import categoryRouter from "../modules/category/category.route";
+import bookRouter from "../modules/book/book.route";
 
 const router = express.Router();
 
 const moduleRoutes = [
     {
         path: "/auth",
-        route: authRouter,
+        router: authRouter,
     },
     {
         path: "/users",
-        route: userRouter,
+        router: userRouter,
     },
     {
         path: "/category",
-        route: categoryRouter
+        router: categoryRouter
+    },
+    {
+        path: "/books",
+        router: bookRouter
     }
 ];
 
-moduleRoutes.forEach(route => router.use(route.path, route.route));
+moduleRoutes.forEach(route => router.use(route.path, route.router));
 export default router;

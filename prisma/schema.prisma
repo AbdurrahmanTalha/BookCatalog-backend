@@ -47,15 +47,16 @@ model Book {
     id              String            @id @default(uuid())
     title           String
     author          String
-    authorId        User              @relation(fields: [author], references: [id])
     price           Float
     genre           String
-    category        String
-    categoryId      Category          @relation(fields: [category], references: [id])
-    publicationDate DateTime          @default(now())
+    categoryId      String
+    category        Category          @relation(fields: [categoryId], references: [id])
+    publicationDate String
     createdAt       DateTime          @default(now())
     updatedAt       DateTime          @updatedAt
     ReviewAndRating ReviewAndRating[]
+    User            User?             @relation(fields: [userId], references: [id])
+    userId          String?
 
     @@map("books")
 }
