@@ -11,8 +11,8 @@ datasource db {
 }
 
 enum Role {
-    ADMIN
-    CUSTOMER
+    admin
+    customer
 }
 
 model User {
@@ -20,14 +20,14 @@ model User {
     name            String
     email           String            @unique
     password        String
-    role            Role              @default(CUSTOMER)
+    role            Role              @default(customer)
     contactNo       String
     address         String
-    profileImage    String
+    profileImg      String
     books           Book[]
     createdAt       DateTime          @default(now())
     updatedAt       DateTime          @updatedAt
-    Order           Order[]
+    order           Order[]
     ReviewAndRating ReviewAndRating[]
 
     @@map("users")
