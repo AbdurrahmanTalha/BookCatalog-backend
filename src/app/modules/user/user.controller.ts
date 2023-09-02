@@ -37,4 +37,15 @@ const updateUser = async (req: Request, res: Response) => {
     });
 };
 
-export default { getAllUsers, getSpecificUser, updateUser };
+const deleteUser = async (req: Request, res: Response) => {
+    const result = await service.deleteUserService(req.params.id);
+
+    sendResponse<User>(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        data: result,
+        message: "Successfully deleted user",
+    });
+};
+
+export default { getAllUsers, getSpecificUser, updateUser, deleteUser };
