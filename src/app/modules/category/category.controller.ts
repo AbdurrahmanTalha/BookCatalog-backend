@@ -16,4 +16,15 @@ const createCategory = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-export default { createCategory };
+const getCategories = catchAsync(async (req: Request, res: Response) => {
+    const result = await service.getAllCategoryService();
+
+    sendResponse<Category[]>(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Successfully found categories",
+        data: result,
+    });
+});
+
+export default { createCategory, getCategories };
