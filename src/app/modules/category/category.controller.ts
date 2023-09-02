@@ -49,4 +49,15 @@ const updateCategory = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-export default { createCategory, getCategories, getSpecificCategory, updateCategory };
+const deleteCategory = catchAsync(async(req: Request, res: Response) => {
+    const result = await service.deleteCategoryService(req.params.id);
+
+    sendResponse<Category>(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Successfully deleted category",
+        data: result
+    })
+})
+
+export default { createCategory, getCategories, getSpecificCategory, updateCategory, deleteCategory };
