@@ -26,4 +26,15 @@ const getSpecificUser = async (req: Request, res: Response) => {
     });
 };
 
-export default { getAllUsers, getSpecificUser };
+const updateUser = async (req: Request, res: Response) => {
+    const result = await service.updateUserService(req.params.id, req.body);
+
+    sendResponse<User>(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        data: result,
+        message: "Successfully updated user",
+    });
+};
+
+export default { getAllUsers, getSpecificUser, updateUser };
