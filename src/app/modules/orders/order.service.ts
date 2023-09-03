@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Order, PrismaClient } from "@prisma/client";
 import { JwtPayload } from "jsonwebtoken";
 
 const prisma = new PrismaClient();
@@ -25,4 +25,9 @@ const createOrderService = async (
     return result;
 };
 
-export default { createOrderService };
+const getAllOrderService = async (): Promise<Order[]> => {
+    const result = await prisma.order.findMany();
+    return result;
+};
+
+export default { createOrderService, getAllOrderService };
