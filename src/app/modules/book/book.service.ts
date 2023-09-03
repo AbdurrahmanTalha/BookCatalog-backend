@@ -3,6 +3,8 @@ import { IPaginationOptions } from "../../../interfaces/pagination";
 import { IBookFilterRequest } from "./book.interface";
 import calculatePagination from "../../../helpers/paginationHelpers";
 import { bookRelationalFields, bookRelationalFieldsMapper, bookSearchableFields } from "./book.constant";
+import ApiError from "../../../errors/ApiError";
+import httpStatus from "http-status";
 
 const prisma = new PrismaClient();
 
@@ -108,6 +110,10 @@ const getSpecificBookService = async (id: string): Promise<Book | null> => {
         },
     });
 
+    if (!result) {
+        throw new ApiError(httpStatus.NOT_FOUND, "Book not found");
+    }
+
     return result;
 };
 
@@ -122,4 +128,14 @@ const updateBookService = async (id: string, data: Partial<Book>): Promise<Book>
     return result;
 };
 
-export default { createBookService, getAllBookService, getSpecificBookService, updateBookService };
+const deleteBookService = async (id: string): Promise<Book> => {
+    const result = await prisma.book.delete({
+        where: {
+            id,
+        },
+    });
+
+    return result;
+};
+
+export default { createBookService, getAllBookService, getSpecificBookService, updateBookService, deleteBookService };

@@ -54,4 +54,15 @@ const updateBook = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-export default { createBook, getAllBook, getBook, updateBook };
+const deleteBook = catchAsync(async (req: Request, res: Response) => {
+    const result = await service.deleteBookService(req.params.id);
+
+    sendResponse<Book>(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Book delete successfully",
+        data: result,
+    });
+});
+
+export default { createBook, getAllBook, getBook, updateBook, deleteBook };

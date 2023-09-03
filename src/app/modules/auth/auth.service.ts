@@ -12,7 +12,6 @@ const registerService = async (data: User): Promise<User> => {
     const result = await prisma.user.create({
         data,
         include: {
-            books: true,
             order: true,
         },
     });
@@ -37,9 +36,9 @@ const loginService = async (payload: ILoginUser): Promise<ILoginUserResponse> =>
     }
 
     const { role } = isUserExist;
-    const accessToken = createToken({ id: isUserExist.id, role }, config.jwt.secret as Secret, config.jwt.expires_in as string);
+    const accessToken = createToken({ userId: isUserExist.id, role }, config.jwt.secret as Secret, config.jwt.expires_in as string);
 
-    const refreshToken = createToken({ id: isUserExist.id, role }, config.jwt.refresh_secret as Secret, config.jwt.refresh_expires_in as string);
+    const refreshToken = createToken({ userId: isUserExist.id, role }, config.jwt.refresh_secret as Secret, config.jwt.refresh_expires_in as string);
 
     return {
         accessToken,
