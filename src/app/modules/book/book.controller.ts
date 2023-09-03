@@ -32,4 +32,15 @@ const getAllBook = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-export default { createBook, getAllBook };
+const getBook = catchAsync(async (req: Request, res: Response) => {
+    const result = await service.getSpecificBookService(req.params.id);
+
+    sendResponse<Book>(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Book Fetched successfully",
+        data: result,
+    });
+});
+
+export default { createBook, getAllBook, getBook };

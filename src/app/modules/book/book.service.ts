@@ -101,4 +101,14 @@ const getAllBookService = async (filters: IBookFilterRequest, options: IPaginati
     };
 };
 
-export default { createBookService, getAllBookService };
+const getSpecificBookService = async (id: string): Promise<Book | null> => {
+    const result = await prisma.book.findUnique({
+        where: {
+            id,
+        },
+    });
+
+    return result;
+};
+
+export default { createBookService, getAllBookService, getSpecificBookService };
