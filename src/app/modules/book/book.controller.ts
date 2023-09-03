@@ -43,4 +43,15 @@ const getBook = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
-export default { createBook, getAllBook, getBook };
+const updateBook = catchAsync(async (req: Request, res: Response) => {
+    const result = await service.updateBookService(req.params.id, req.body);
+
+    sendResponse<Book>(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Book updated successfully",
+        data: result,
+    });
+});
+
+export default { createBook, getAllBook, getBook, updateBook };
